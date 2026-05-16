@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -169,7 +170,7 @@
       <div>
         <div class="section-num">01 · Fichas técnicas</div>
         <h2>Fichas de tienda ideal</h2>
-        <p class="section-lead">Documentación técnica oficial de cada tipología de tienda. Descarga la versión vigente directamente desde SharePoint.</p>
+        <p class="section-lead">Documentación técnica oficial con los parámetros de diseño de cada tipología Promart: alturas libres, picadas, proveedor de mobiliario y layouts de referencia. Vigentes para todos los proyectos nuevos a partir de Q3-2026.</p>
       </div>
     </div>
 
@@ -184,6 +185,7 @@
           <div class="sc-title-row">
             <div>
               <div class="sc-title">Tienda Alta</div>
+              <div class="sc-sub">Edificación de mayor altura con menor huella</div>
             </div>
             <div class="status-badge" data-state="vigente" data-store="tienda-alta">
               <span class="status-dot"></span>
@@ -209,7 +211,7 @@
         </div>
         <div class="sc-footer">
           <div class="sc-files"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg> 4 archivos · v3.2</div>
-           <button class="btn primary sm" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgBULCSkslTSTKHMPCexOGKjAcAd1zdtJVh6ZFur-mHmhSA?e=WsOpm5','_blank')">
+          <button class="btn primary sm" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgBULCSkslTSTKHMPCexOGKjAcAd1zdtJVh6ZFur-mHmhSA?e=s2JYpG','_blank')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Abrir en SharePoint <span class="arrow">↗</span>
           </button>
@@ -226,6 +228,7 @@
           <div class="sc-title-row">
             <div>
               <div class="sc-title">Tienda Baja</div>
+              <div class="sc-sub">Edificación de mayor huella con menor altura</div>
             </div>
             <div class="status-badge" data-state="vigente" data-store="tienda-baja">
               <span class="status-dot"></span>
@@ -251,7 +254,7 @@
         </div>
         <div class="sc-footer">
           <div class="sc-files"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg> 4 archivos · v2.8</div>
-          <button class="btn primary sm" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgATBf2HAFQqTL9MArGzLinBAZXgsNfljYjwxcgqyO6PKyA?e=8uBaVg','_blank')">
+          <button class="btn primary sm" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgATBf2HAFQqTL9MArGzLinBAZXgsNfljYjwxcgqyO6PKyA?e=hCOrcI','_blank')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Abrir en SharePoint <span class="arrow">↗</span>
           </button>
@@ -266,7 +269,7 @@
       <div>
         <div class="section-num">02 · Repositorio BIM</div>
         <h2>Familias BIM / Revit</h2>
-        <p class="section-lead">Biblioteca corporativa de familias paramétricas organizadas por categoría. Todos los archivos son compatibles con Revit 2024.</p>
+        <p class="section-lead">Biblioteca corporativa de familias paramétricas certificadas para proyectos Promart Homecenter. Organizadas por categoría y actualizadas con los estándares vigentes. Requieren Revit 2024 o superior. Descarga directamente desde SharePoint y vincúlalas a tu modelo de proyecto.</p>
       </div>
     </div>
 
@@ -281,7 +284,7 @@
         <div class="bim-icon" style="background:#FFF4EA;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F47920" stroke-width="1.8"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg></div>
         <div><div class="bim-title">Plantilla base</div><div class="bim-meta">Archivo .rte · Proyecto y familia estándar</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgDJP-W8IH-ITaFZKG6C5bmWAY1PXhZ1T7iaxUZuIzt8qFw?e=jsWAuM','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgDJP-W8IH-ITaFZKG6C5bmWAY1PXhZ1T7iaxUZuIzt8qFw?e=KAAkFn','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
 
@@ -290,7 +293,7 @@
         <div class="bim-icon" style="background:#FFF4EA;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F47920" stroke-width="1.8"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><line x1="8" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="16" y2="21"/></svg></div>
         <div><div class="bim-title">Racks metálicos HMY</div><div class="bim-meta">Familias paramétricas · Tienda Alta</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgDnH4BEPuc_SJSiSXKjJ28lAVe3vmrEBfG0sAL0YEsKP9U?e=bcfdaI','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgDnH4BEPuc_SJSiSXKjJ28lAVe3vmrEBfG0sAL0YEsKP9U?e=2Ku1Cy','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
 
@@ -299,7 +302,7 @@
         <div class="bim-icon" style="background:#EFF6FF;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1D4ED8" stroke-width="1.8"><rect x="2" y="3" width="20" height="18" rx="1"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><line x1="7" y1="3" x2="7" y2="21"/><line x1="14" y1="3" x2="14" y2="21"/></svg></div>
         <div><div class="bim-title">Racks metálicos JRM</div><div class="bim-meta">Familias paramétricas · Tienda Baja</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgD8Zhyo_jmyRLrCKFbq2EWfAe2VpdidMq7Q_Lq8W4HSH_4?e=tinyCm','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgD8Zhyo_jmyRLrCKFbq2EWfAePWhwbYzqlpqCxTuPCcc7Y?e=X4bMBg','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
 
@@ -308,7 +311,7 @@
         <div class="bim-icon" style="background:#ECFDF5;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="1.8"><rect x="3" y="2" width="18" height="20" rx="1"/><line x1="3" y1="8" x2="21" y2="8"/><line x1="3" y1="14" x2="21" y2="14"/><line x1="9" y1="2" x2="9" y2="22"/><line x1="15" y1="2" x2="15" y2="22"/></svg></div>
         <div><div class="bim-title">Gondolas</div><div class="bim-meta">Módulos de gondola para piso de venta</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgAvloaoFRM6S6pmq2n2QWS-AXjbHLKLFP-SY2T54zuR_Tw?e=RUgzUd','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgAvloaoFRM6S6pmq2n2QWS-AXjbHLKLFP-SY2T54zuR_Tw?e=KlpFRw','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
 
@@ -317,7 +320,7 @@
         <div class="bim-icon" style="background:#FDF4FF;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9333EA" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
         <div><div class="bim-title">Familias Carpintería</div><div class="bim-meta">Puertas, muebles y divisiones de madera</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('#','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgBrFv3kEm0MT7d_1W4j_6nFAZlCghAdXCGRkMjlP4_ThLk?e=PNmYUB','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
 
@@ -326,7 +329,7 @@
         <div class="bim-icon" style="background:#FFFBEB;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
         <div><div class="bim-title">Familias IIEE</div><div class="bim-meta">Instalaciones eléctricas y luminarias</div></div>
         <div class="bim-footer">
-          <button class="btn sm dark" onclick="window.open('#','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
+          <button class="btn sm dark" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgA_ov30gaf8SZWOiwQq4gUKAb0J0P9fAwMLc4H96U8iNNg?e=oQoHud','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir ↗</button>
         </div>
       </div>
     </div>
@@ -338,50 +341,16 @@
       <div>
         <div class="section-num">03 · Decisiones</div>
         <h2>Acuerdos del comité</h2>
-        <p class="section-lead">Histórico trazable de decisiones, lineamientos y minutas del comité de Store Planning.</p>
+        <p class="section-lead">Registro oficial de decisiones, lineamientos y minutas aprobadas por el comité de Store Planning. Accede al repositorio completo en SharePoint o filtra la línea de tiempo por categoría.</p>
       </div>
     </div>
 
     <div class="sharepoint-link">
       <div class="sp-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
       <div class="sp-body"><strong>Minutas y acuerdos en SharePoint</strong><span class="sp-path">/Store Planning/Acuerdos-Comite/</span><span class="sp-meta">68 minutas · histórico desde 2022</span></div>
-      <button class="btn sm" onclick="window.open('#','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir minutas <span class="arrow">↗</span></button>
+      <button class="btn sm" onclick="window.open('https://intercorpretail.sharepoint.com/:f:/s/DISEO20/IgBCOFcxRwgfRohJGJejPkVQAX3YZssz6USx8ZjecHRb9gM?e=8cgr6c','_blank')"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> Abrir acuerdos <span class="arrow">↗</span></button>
     </div>
 
-    <div class="cat-filter">
-      <span class="area-lbl">Categoría</span>
-      <div class="chip active" onclick="filterAcuerdos('all',this)">Todas</div>
-      <div class="chip" onclick="filterAcuerdos('layout',this)">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Layout
-      </div>
-      <div class="chip" onclick="filterAcuerdos('mobiliario',this)">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>Mobiliario
-      </div>
-      <div class="chip" onclick="filterAcuerdos('bim',this)">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>BIM
-      </div>
-    </div>
-
-    <div class="timeline">
-      <div class="tl-item" data-cat="layout">
-        <div class="tl-date">12 MAY 2026</div>
-        <h5 class="tl-title">Estandarización de picadas en tienda baja <span class="badge aprobado">Aprobado</span></h5>
-        <p class="tl-body">Se aprueba la transición a 7.50 m como medida única para todos los proyectos &gt; 1,800 m². Vigencia inmediata para nuevos proyectos.</p>
-        <div class="tl-author"><div class="tl-av" style="background:linear-gradient(135deg,var(--pt),var(--p))">AN</div>Arianna Núñez · Store Planning</div>
-      </div>
-      <div class="tl-item" data-cat="mobiliario">
-        <div class="tl-date">28 ABR 2026</div>
-        <h5 class="tl-title">Cambio de proveedor mobiliario zona caja <span class="badge aprobado">Aprobado</span></h5>
-        <p class="tl-body">Piloto con proveedor JRM para tienda Cusco Q3-2026. Evaluación de resultados en 6 meses post-apertura.</p>
-        <div class="tl-author"><div class="tl-av" style="background:linear-gradient(135deg,var(--pt),var(--pd))">JR</div>Juan Ramírez · Comercial</div>
-      </div>
-      <div class="tl-item" data-cat="bim">
-        <div class="tl-date">10 ABR 2026</div>
-        <h5 class="tl-title">Adopción Revit 2024 para nuevos proyectos <span class="badge aprobado">Aprobado</span></h5>
-        <p class="tl-body">Versión mínima requerida para todas las familias y proyectos BIM nuevos a partir de Q3-2026.</p>
-        <div class="tl-author"><div class="tl-av" style="background:linear-gradient(135deg,#A7F3D0,#047857)">CS</div>Comité Store Planning</div>
-      </div>
-    </div>
   </section>
 
   <!-- ===== SECTION 4: ANÁLISIS ===== -->
@@ -392,19 +361,20 @@
         <h2>Comparativo de tiendas</h2>
         <p class="section-lead">Carga tu Excel para comparar métricas entre tiendas. Cada tienda se identifica con un color único para facilitar la lectura.</p>
       </div>
-      <button class="btn" onclick="window.open('#','_blank')">
+      <button class="btn" onclick="downloadTemplate()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar plantilla Excel
       </button>
     </div>
 
-    <div class="upload">
+    <input type="file" id="file-input" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleFileInput(this)">
+    <div class="upload" id="upload-zone">
       <div class="upload-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#F47920" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
       <h4>Arrastra tu archivo Excel aquí</h4>
       <p>o selecciónalo desde tu computador · Formatos .xlsx, .xls · Máximo 25 MB</p>
       <div class="upload-actions">
-        <button class="btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Ver formato esperado</button>
-        <button class="btn primary"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Cargar archivo <span class="arrow">→</span></button>
+        <button class="btn" onclick="downloadTemplate()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Ver formato esperado</button>
+        <button class="btn primary" onclick="document.getElementById('file-input').click()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>Cargar archivo <span class="arrow">→</span></button>
       </div>
     </div>
 
@@ -431,21 +401,26 @@
         </div>
         <div class="control-group">
           <span class="control-label">País</span>
-          <div class="country-select"><span>🇵🇪</span> Perú</div>
+          <select id="country-sel" class="country-select" onchange="filterByCountry(this.value)">
+            <option value="Perú">🇵🇪 Perú</option>
+            <option value="Chile">🇨🇱 Chile</option>
+            <option value="Colombia">🇨🇴 Colombia</option>
+            <option value="Bolivia">🇧🇴 Bolivia</option>
+          </select>
         </div>
       </div>
       <div class="control-row">
         <div class="control-group grow">
-          <span class="control-label">Tiendas · 5 de 22 seleccionadas</span>
-          <div class="chip-group">
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Lima Norte</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Arequipa</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Trujillo</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Cusco</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Chiclayo</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Piura</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Huancayo</span>
-            <span class="multi-chip more">+ 15 más</span>
+          <span class="control-label" id="stores-label">Tiendas · Carga tu Excel para ver las tiendas disponibles</span>
+          <div class="chip-group" id="store-chips">
+            <span class="multi-chip selected" onclick="this.classList.toggle('selected');refreshChart()">Lima Norte</span>
+            <span class="multi-chip selected" onclick="this.classList.toggle('selected');refreshChart()">Arequipa</span>
+            <span class="multi-chip selected" onclick="this.classList.toggle('selected');refreshChart()">Trujillo</span>
+            <span class="multi-chip selected" onclick="this.classList.toggle('selected');refreshChart()">Cusco</span>
+            <span class="multi-chip selected" onclick="this.classList.toggle('selected');refreshChart()">Chiclayo</span>
+            <span class="multi-chip" onclick="this.classList.toggle('selected');refreshChart()">Piura</span>
+            <span class="multi-chip" onclick="this.classList.toggle('selected');refreshChart()">Huancayo</span>
+            <span class="multi-chip more" onclick="selectAllStores(this)">Seleccionar todas</span>
           </div>
         </div>
       </div>
@@ -619,7 +594,7 @@
           <div class="sp-field-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Esquema antes/después · Fotografía de referencia</div>
           <div class="sp-field-item"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Nombre y cargo del solicitante</div>
         </div>
-        <a class="btn primary sp-form-btn" href="https://intercorpretail-my.sharepoint.com/:l:/g/personal/coordinador_diseno5_promart_pe/JACLy6TxXrKcQbqQ-_TehLFZAfQX8GmN5voOx3X0wF7pKwE?nav=MGQwNGMwNzAtNGI4YS00Y2VkLWFmZjYtMmI4NDJiMGIzYzNm" target="_blank" rel="noopener">
+        <a class="btn primary sp-form-btn" href="https://intercorpretail-my.sharepoint.com/personal/coordinador_diseno5_promart_pe/_layouts/15/listforms.aspx?cid=ZjFhNGNiOGItYjI1ZS00MTljLWJhOTAtZmJmNGRlODRiMTU5&nav=MGQwNGMwNzAtNGI4YS00Y2VkLWFmZjYtMmI4NDJiMGIzYzNm" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           Abrir formulario en SharePoint <span class="arrow">↗</span>
         </a>
