@@ -1,10 +1,11 @@
-// ---- CONFIG DE ESTADOS ----
+// ================================================================
+//  CONFIG DE ESTADOS (fichas §01)
+// ================================================================
 const STATE_LABELS = {
   vigente:       { text: 'Vigente',          dot: true  },
   actualizacion: { text: 'En actualización', dot: false },
   desuso:        { text: 'Desuso',           dot: false }
 };
-
 (function applyConfig() {
   try {
     const cfg = JSON.parse(document.getElementById('promart-config').textContent);
@@ -19,43 +20,38 @@ const STATE_LABELS = {
   } catch(e) { console.warn('Config error:', e); }
 })();
 
-// ---- CHART TYPE ----
+// ================================================================
+//  TIPO DE GRÁFICO
+// ================================================================
 function setChart(type, btn) {
   document.getElementById('chart').dataset.type = type;
   btn.closest('.segmented').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  refreshChart();
 }
 
-// ---- METRIC TOGGLE ----
+// ================================================================
+//  MÉTRICA — reconstruye el gráfico al cambiar
+// ================================================================
 let currentMetric = 'm2';
 function setMetric(metric, btn) {
   currentMetric = metric;
   btn.closest('.segmented').querySelectorAll('.seg-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.bar-view .bar').forEach(bar => {
-    bar.dataset.val = bar.dataset[metric === 'racks' ? 'racks' : metric];
-  });
+  refreshChart();
 }
 
-// ---- TOGGLE ALL AREAS ----
-function toggleAll(el) {
-  const chips = el.parentNode.querySelectorAll('.multi-chip:not(:first-child)');
-  const allOn = [...chips].every(c => c.classList.contains('selected'));
-  chips.forEach(c => c.classList[allOn ? 'remove' : 'add']('selected'));
-  el.classList[allOn ? 'remove' : 'add']('selected');
-}
-
-// ---- TOOLTIP ----
+// ================================================================
+//  TOOLTIP
+// ================================================================
 const tt = document.getElementById('tooltip');
 function showTip(e, el) {
   const d = el.dataset;
-  const metricVal = currentMetric === 'm2' ? d.m2 : currentMetric === 'm3' ? d.m3 : d.racks;
   tt.innerHTML = `
     <div class="tt-store"><span class="tt-dot" style="background:${d.color}"></span>${d.store}</div>
-    <div class="tt-row"><span>Valor</span><strong>${metricVal}</strong></div>
-    <div class="tt-row"><span>Área</span><strong>${d.area}</strong></div>
-    <div class="tt-row"><span>Período</span><strong>${d.period}</strong></div>
-    <div class="tt-row"><span>Tipología</span><strong>${d.tipo}</strong></div>`;
+    <div class="tt-row"><span>m²</span><strong>${d.m2}</strong></div>
+    <div class="tt-row"><span>m³</span><strong>${d.m3}</strong></div>
+    <div class="tt-row"><span>Racks</span><strong>${d.racks}</strong></div>`;
   tt.classList.add('show');
   moveTip(e);
 }
@@ -70,7 +66,9 @@ function moveTip(e) {
 }
 function hideTip() { tt.classList.remove('show'); }
 
-// ---- ACUERDOS FILTER ----
+// ================================================================
+//  ACUERDOS FILTER
+// ================================================================
 function filterAcuerdos(cat, btn) {
   btn.closest('.cat-filter').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   btn.classList.add('active');
@@ -78,14 +76,14 @@ function filterAcuerdos(cat, btn) {
     item.classList.toggle('hidden', cat !== 'all' && item.dataset.cat !== cat);
   });
 }
-
-// ---- AREA FILTER ----
 function setArea(el) {
   el.closest('.area-filter').querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
 }
 
-// ---- SCROLLSPY ----
+// ================================================================
+//  SCROLLSPY
+// ================================================================
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav a');
 window.addEventListener('scroll', () => {
@@ -95,36 +93,43 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 // ================================================================
-//  PALETA DE COLORES DEL GRÁFICO
+//  CONSTANTES
 // ================================================================
 const CHART_COLORS = [
   '#F47920','#10B981','#8B5CF6','#3B82F6','#EF4444',
-  '#F59E0B','#06B6D4','#EC4899','#84CC16','#6366F1'
+  '#F59E0B','#06B6D4','#EC4899','#84CC16','#6366F1',
+  '#14B8A6','#F43F5E','#A855F7','#0EA5E9','#22C55E'
 ];
 
-const COUNTRY_FLAGS = { 'Perú':'🇵🇪', 'Chile':'🇨🇱', 'Colombia':'🇨🇴', 'Bolivia':'🇧🇴' };
+const COUNTRY_FLAGS = {
+  'PERÚ':'🇵🇪','Perú':'🇵🇪','Peru':'🇵🇪','PERU':'🇵🇪',
+  'Ecuador':'🇪🇨','ECUADOR':'🇪🇨',
+  'Chile':'🇨🇱','CHILE':'🇨🇱',
+  'Colombia':'🇨🇴','COLOMBIA':'🇨🇴',
+  'Bolivia':'🇧🇴','BOLIVIA':'🇧🇴'
+};
 
 // ================================================================
 //  DATOS GLOBALES
 // ================================================================
-let allStoreData = [];
+let allRows       = [];
+let tiendaColors  = {};  // { TIENDA_NAME: '#COLOR' }
 
 // ================================================================
 //  DESCARGA DE PLANTILLA CSV
 // ================================================================
 function downloadTemplate() {
   const csv = [
-    'Tienda,País,Tipología,Área,Período,Venta_m2,Venta_m3,N_Racks',
-    'Lima Norte,Perú,Tienda Alta,Ferretería · Construcción · Hogar,Q1 2026,845,312,48',
-    'Arequipa,Perú,Tienda Baja,Ferretería · Construcción · Hogar,Q1 2026,1200,445,62',
-    'Trujillo,Perú,Tienda Alta,Ferretería · Construcción · Hogar,Q1 2026,980,362,54',
-    'Cusco,Perú,Tienda Baja,Ferretería · Construcción · Hogar,Q1 2026,1500,556,78',
-    'Chiclayo,Perú,Tienda Alta,Ferretería · Construcción · Hogar,Q1 2026,920,341,51',
-    'Piura,Perú,Tienda Baja,Ferretería · Construcción · Hogar,Q1 2026,760,280,40',
-    'Santiago Centro,Chile,Tienda Alta,Ferretería · Construcción · Hogar,Q1 2026,1100,410,60',
-    'Providencia,Chile,Tienda Baja,Ferretería · Construcción · Hogar,Q1 2026,950,350,52',
+    'Pais,Tienda,Area_Comercial,m2,m3,N_RACKS',
+    'PERÚ,AREQUIPA,Ferretería,180.20,310.50,25',
+    'PERÚ,AREQUIPA,Herramientas,335.75,407.76,54',
+    'PERÚ,AREQUIPA,Puertas,76.17,185.87,10.5',
+    'PERÚ,CUSCO 1,Ferretería,125.59,236.76,17.5',
+    'PERÚ,CUSCO 1,Herramientas,210.30,320.40,32',
+    'PERÚ,TRUJILLO,Ferretería,160.00,280.00,22',
+    'Ecuador,Batan,Ferretería,90.00,150.00,12',
+    'Ecuador,Orellana,Ferretería,85.00,140.00,11',
   ].join('\n');
-
   const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' });
   const url  = URL.createObjectURL(blob);
   const a    = Object.assign(document.createElement('a'), { href: url, download: 'Plantilla_StorePlanning.csv' });
@@ -144,7 +149,7 @@ function handleFile(file) {
   const zone = document.getElementById('upload-zone');
 
   const onData = rows => {
-    allStoreData = rows;
+    allRows = rows;
     populateCountries();
     setZoneLoaded(zone, file.name);
   };
@@ -188,17 +193,27 @@ function setZoneLoaded(zone, filename) {
 //  SELECTOR DE PAÍS
 // ================================================================
 function populateCountries() {
-  const countries = [...new Set(allStoreData.map(r => r['País'] || 'Perú'))];
+  const countries = [...new Set(allRows.map(r => r.Pais || r['País'] || ''))].filter(Boolean);
   const sel = document.getElementById('country-sel');
-  sel.innerHTML = countries
-    .map(c => `<option value="${c}">${COUNTRY_FLAGS[c] || '🏳'} ${c}</option>`)
-    .join('');
-  filterByCountry(countries[0]);
+  if (sel) {
+    sel.innerHTML = countries
+      .map(c => `<option value="${c}">${COUNTRY_FLAGS[c] || '🏳'} ${c}</option>`)
+      .join('');
+  }
+  if (countries[0]) filterByCountry(countries[0]);
 }
 
 function filterByCountry(country) {
-  const stores = allStoreData.filter(r => (r['País'] || 'Perú') === country);
+  const countryRows = allRows.filter(r => (r.Pais || r['País'] || '') === country);
+  const stores = [...new Set(countryRows.map(r => r.Tienda))].sort();
+  const areas  = [...new Set(countryRows.map(r => r.Area_Comercial || r['Área'] || ''))].filter(Boolean).sort();
+
+  // Asignar colores fijos por tienda
+  tiendaColors = {};
+  stores.forEach((t, i) => { tiendaColors[t] = CHART_COLORS[i % CHART_COLORS.length]; });
+
   updateStoreChips(stores);
+  populateAreas(areas);
   refreshChart();
 }
 
@@ -206,21 +221,20 @@ function filterByCountry(country) {
 //  CHIPS DE TIENDAS
 // ================================================================
 function updateStoreChips(stores) {
-  const label    = document.getElementById('stores-label');
-  const chipWrap = document.getElementById('store-chips');
-  if (!chipWrap) return;
+  const label = document.getElementById('stores-label');
+  const wrap  = document.getElementById('store-chips');
+  if (!wrap) return;
 
-  chipWrap.innerHTML = stores.map((r, i) => {
-    const color = CHART_COLORS[i % CHART_COLORS.length];
+  wrap.innerHTML = stores.map(t => {
+    const color = tiendaColors[t] || '#F47920';
     return `<span class="multi-chip selected"
-      style="--chip-color:${color}"
-      data-tienda="${r.Tienda}"
-      onclick="this.classList.toggle('selected');refreshChart()">
-      <span class="chip-dot" style="background:${color}"></span>${r.Tienda}
-    </span>`;
-  }).join('') + `<span class="multi-chip more" onclick="selectAllStores(this)">Seleccionar todas</span>`;
+      data-tienda="${t}"
+      onclick="this.classList.toggle('selected');refreshChart()"
+      style="border-left:3px solid ${color};padding-left:10px">${t}</span>`;
+  }).join('') +
+  `<span class="multi-chip more" onclick="selectAllStores(this)">Seleccionar todas</span>`;
 
-  if (label) label.textContent = `Tiendas · ${stores.length} disponibles`;
+  if (label) label.textContent = `Tiendas · ${stores.length} disponibles · todas seleccionadas`;
 }
 
 function selectAllStores(btn) {
@@ -231,70 +245,125 @@ function selectAllStores(btn) {
 }
 
 // ================================================================
-//  REFRESH CHART SEGÚN SELECCIÓN ACTUAL
+//  CHIPS DE ÁREAS COMERCIALES
 // ================================================================
-function refreshChart() {
-  if (!allStoreData.length) return;
+function populateAreas(areas) {
+  const label = document.getElementById('areas-label');
+  const wrap  = document.getElementById('area-chips');
+  if (!wrap) return;
 
-  const country  = (document.getElementById('country-sel') || {}).value || 'Perú';
-  const selected = [...document.querySelectorAll('#store-chips .multi-chip[data-tienda].selected')]
-                    .map(c => c.dataset.tienda);
+  wrap.innerHTML =
+    `<span class="multi-chip active" onclick="selectAllAreas(this)">Todas</span>` +
+    areas.map(a =>
+      `<span class="multi-chip" data-area="${a}" onclick="toggleAreaChip(this)">${a}</span>`
+    ).join('');
 
-  const filtered = allStoreData.filter(r =>
-    (r['País'] || 'Perú') === country && selected.includes(r.Tienda)
-  );
+  if (label) label.textContent = `Áreas comerciales · ${areas.length} disponibles`;
+}
 
-  if (filtered.length) updateChart(filtered, 'datos filtrados');
+function selectAllAreas(btn) {
+  document.querySelectorAll('#area-chips .multi-chip[data-area]').forEach(c => c.classList.remove('selected'));
+  btn.classList.add('active');
+  refreshChart();
+}
+
+function toggleAreaChip(el) {
+  el.classList.toggle('selected');
+  const todasBtn  = document.querySelector('#area-chips .multi-chip:first-child');
+  const anyOn     = document.querySelectorAll('#area-chips .multi-chip[data-area].selected').length > 0;
+  if (todasBtn) todasBtn.classList.toggle('active', !anyOn);
+  refreshChart();
 }
 
 // ================================================================
-//  ACTUALIZAR GRÁFICO
+//  REFRESH — filtra y agrega, luego renderiza
 // ================================================================
-function updateChart(rows, filename) {
-  if (!rows.length) return;
+function refreshChart() {
+  if (!allRows.length) return;
 
-  const maxM2 = Math.max(...rows.map(r => parseFloat(r.Venta_m2) || 0));
-  const area  = rows[0]['Área']    || 'Todas las áreas';
-  const per   = rows[0]['Período'] || 'Período importado';
+  const country        = document.getElementById('country-sel')?.value || '';
+  const selectedTiendas = [...document.querySelectorAll('#store-chips .multi-chip[data-tienda].selected')]
+                            .map(c => c.dataset.tienda);
+  const todasAreas     = document.querySelector('#area-chips .multi-chip:first-child')?.classList.contains('active') ?? true;
+  const selectedAreas  = todasAreas ? null :
+    [...document.querySelectorAll('#area-chips .multi-chip[data-area].selected')].map(c => c.dataset.area);
 
-  document.querySelector('.chart-head h4').textContent   = `Venta por m² · ${area} · ${per}`;
-  document.querySelector('.chart-head small').textContent = `${rows.length} tiendas · ${filename} · Pasa el mouse sobre cada elemento para ver detalle`;
+  const filtered = allRows.filter(r => {
+    const pais   = r.Pais || r['País'] || '';
+    const tienda = r.Tienda || '';
+    const area   = r.Area_Comercial || r['Área'] || '';
+    return (!country || pais === country)
+        && selectedTiendas.includes(tienda)
+        && (!selectedAreas || selectedAreas.includes(area));
+  });
 
-  // -- BARRAS --
-  document.querySelector('.bar-view').innerHTML = rows.map((r, i) => {
-    const color = CHART_COLORS[i % CHART_COLORS.length];
-    const m2    = parseFloat(r.Venta_m2) || 0;
-    const m3    = parseFloat(r.Venta_m3) || 0;
-    const racks = parseFloat(r.N_Racks)  || 0;
-    const pct   = maxM2 > 0 ? Math.max(4, Math.round((m2 / maxM2) * 92)) : 4;
-    return `<div class="bar" style="--bar-c:${color};height:${pct}%"
-      data-val="S/ ${m2.toLocaleString('es-PE')}" data-label="${r.Tienda}"
-      data-store="${r.Tienda}" data-color="${color}"
-      data-m2="S/ ${m2.toLocaleString('es-PE')}/m²"
-      data-m3="S/ ${m3.toLocaleString('es-PE')}/m³"
-      data-racks="${racks} racks"
-      data-area="${r['Área'] || ''}" data-period="${r['Período'] || ''}" data-tipo="${r['Tipología'] || ''}"
+  // Agregar por Tienda
+  const agg = {};
+  filtered.forEach(r => {
+    const t = r.Tienda;
+    if (!agg[t]) agg[t] = { m2: 0, m3: 0, racks: 0 };
+    agg[t].m2    += parseFloat(r.m2)      || 0;
+    agg[t].m3    += parseFloat(r.m3)      || 0;
+    agg[t].racks += parseFloat(r.N_RACKS) || 0;
+  });
+
+  // Mantener el orden de los chips
+  const ordered = [...document.querySelectorAll('#store-chips .multi-chip[data-tienda].selected')]
+    .map(c => c.dataset.tienda)
+    .filter(t => agg[t])
+    .map(t => ({
+      Tienda: t,
+      m2:    Math.round(agg[t].m2    * 10) / 10,
+      m3:    Math.round(agg[t].m3    * 10) / 10,
+      racks: Math.round(agg[t].racks * 10) / 10,
+      color: tiendaColors[t] || CHART_COLORS[0]
+    }));
+
+  if (ordered.length) renderChart(ordered, country);
+}
+
+// ================================================================
+//  RENDERIZAR GRÁFICO
+// ================================================================
+function renderChart(stores, country) {
+  const vals   = stores.map(s => s[currentMetric] || 0);
+  const maxVal = Math.max(...vals) || 1;
+  const suffix = currentMetric === 'm2' ? ' m²' : currentMetric === 'm3' ? ' m³' : ' racks';
+  const metricLabel = currentMetric === 'm2' ? 'm²' : currentMetric === 'm3' ? 'm³' : 'N° Racks';
+
+  // Título
+  document.querySelector('.chart-head h4').textContent =
+    `${metricLabel} por tienda · ${country || ''}`;
+  document.querySelector('.chart-head small').textContent =
+    `${stores.length} tienda(s) · Pasa el mouse para ver detalle completo`;
+
+  // ---- BARRAS ----
+  document.querySelector('.bar-view').innerHTML = stores.map(s => {
+    const val = s[currentMetric] || 0;
+    const pct = Math.max(4, Math.round((val / maxVal) * 92));
+    return `<div class="bar" style="--bar-c:${s.color};height:${pct}%"
+      data-val="${val.toLocaleString('es-PE')}${suffix}"
+      data-label="${s.Tienda}"
+      data-store="${s.Tienda}"
+      data-color="${s.color}"
+      data-m2="${s.m2.toLocaleString('es-PE')} m²"
+      data-m3="${s.m3.toLocaleString('es-PE')} m³"
+      data-racks="${s.racks.toLocaleString('es-PE')} racks"
       onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()"></div>`;
   }).join('');
 
-  // -- LÍNEAS --
-  const n     = rows.length;
+  // ---- LÍNEAS ----
+  const n     = stores.length;
   const xStep = n > 1 ? 480 / (n - 1) : 0;
-  const pts   = rows.map((r, i) => {
-    const m2    = parseFloat(r.Venta_m2) || 0;
-    const m3    = parseFloat(r.Venta_m3) || 0;
-    const racks = parseFloat(r.N_Racks)  || 0;
-    return {
-      x: n === 1 ? 300 : Math.round(60 + i * xStep),
-      y: maxM2 > 0 ? Math.round(220 - (m2 / maxM2) * 180) : 220,
-      m2, m3, racks,
-      color: CHART_COLORS[i % CHART_COLORS.length],
-      Tienda: r.Tienda, Área: r['Área'] || '', Período: r['Período'] || '', Tipología: r['Tipología'] || ''
-    };
-  });
+  const pts   = stores.map((s, i) => ({
+    x: n === 1 ? 300 : Math.round(60 + i * xStep),
+    y: Math.round(220 - ((s[currentMetric] || 0) / maxVal) * 180),
+    ...s
+  }));
 
-  const areaPath = `M${pts[0].x} ${pts[0].y}` + pts.slice(1).map(p => ` L${p.x} ${p.y}`).join('')
-                 + ` L${pts[n-1].x} 220 L${pts[0].x} 220Z`;
+  const areaPath = `M${pts[0].x} ${pts[0].y}` +
+    pts.slice(1).map(p => ` L${p.x} ${p.y}`).join('') +
+    ` L${pts[n-1].x} 220 L${pts[0].x} 220Z`;
 
   document.querySelector('.line-view svg').innerHTML = `
     <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
@@ -306,28 +375,32 @@ function updateChart(rows, filename) {
       <line x1="20" y1="160" x2="580" y2="160"/><line x1="20" y1="220" x2="580" y2="220"/>
     </g>
     <path d="${areaPath}" fill="url(#lg)"/>
-    <polyline points="${pts.map(p=>`${p.x},${p.y}`).join(' ')}" fill="none" stroke="#94A3B8"
-      stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 3"/>
-    ${pts.map(p => `<circle class="line-dot" cx="${p.x}" cy="${p.y}" r="7"
-      fill="#fff" stroke="${p.color}" stroke-width="3"
-      data-store="${p.Tienda}" data-color="${p.color}"
-      data-m2="S/ ${p.m2.toLocaleString('es-PE')}/m²"
-      data-m3="S/ ${p.m3.toLocaleString('es-PE')}/m³"
-      data-racks="${p.racks} racks"
-      data-area="${p.Área}" data-period="${p.Período}" data-tipo="${p.Tipología}"
-      onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()"/>`).join('')}
+    <polyline points="${pts.map(p=>`${p.x},${p.y}`).join(' ')}"
+      fill="none" stroke="#94A3B8" stroke-width="2"
+      stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="4 3"/>
+    ${pts.map(p => `
+      <circle class="line-dot" cx="${p.x}" cy="${p.y}" r="7"
+        fill="#fff" stroke="${p.color}" stroke-width="3"
+        data-store="${p.Tienda}" data-color="${p.color}"
+        data-m2="${p.m2.toLocaleString('es-PE')} m²"
+        data-m3="${p.m3.toLocaleString('es-PE')} m³"
+        data-racks="${p.racks.toLocaleString('es-PE')} racks"
+        onmouseenter="showTip(event,this)" onmousemove="moveTip(event)" onmouseleave="hideTip()"/>`).join('')}
     <g font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle">
-      ${pts.map(p=>`<text x="${p.x}" y="${p.y-14}" fill="${p.color}">${p.m2.toLocaleString('es-PE')}</text>`).join('')}
+      ${pts.map(p => `<text x="${p.x}" y="${p.y - 14}" fill="${p.color}">
+        ${(p[currentMetric]||0).toLocaleString('es-PE')}</text>`).join('')}
     </g>
-    <g font-family="Inter,sans-serif" font-size="11" fill="#7A7A82" text-anchor="middle">
-      ${pts.map(p=>`<text x="${p.x}" y="252">${p.Tienda}</text>`).join('')}
+    <g font-family="Inter,sans-serif" font-size="10" fill="#7A7A82" text-anchor="middle">
+      ${pts.map(p => {
+        const lbl = p.Tienda.length > 9 ? p.Tienda.slice(0, 9) + '…' : p.Tienda;
+        return `<text x="${p.x}" y="252">${lbl}</text>`;
+      }).join('')}
     </g>`;
 
-  // -- LEYENDA --
-  document.querySelector('.chart-legend').innerHTML = rows.map((r, i) =>
+  // ---- LEYENDA ----
+  document.querySelector('.chart-legend').innerHTML = stores.map(s =>
     `<div class="legend-item">
-      <div class="legend-dot" style="background:${CHART_COLORS[i%CHART_COLORS.length]}"></div>
-      ${r.Tienda}
+      <div class="legend-dot" style="background:${s.color}"></div>${s.Tienda}
     </div>`).join('');
 }
 
