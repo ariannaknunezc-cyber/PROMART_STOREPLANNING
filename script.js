@@ -292,7 +292,20 @@ function niceMax(val) {
   if (val <= 0) return 100;
   const mag  = Math.pow(10, Math.floor(Math.log10(val)));
   const norm = val / mag;
-  return (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10) * mag;
+  let nice;
+  if      (norm <= 1)   nice = 1;
+  else if (norm <= 1.5) nice = 1.5;
+  else if (norm <= 2)   nice = 2;
+  else if (norm <= 2.5) nice = 2.5;
+  else if (norm <= 3)   nice = 3;
+  else if (norm <= 4)   nice = 4;
+  else if (norm <= 5)   nice = 5;
+  else if (norm <= 6)   nice = 6;
+  else if (norm <= 7)   nice = 7;
+  else if (norm <= 8)   nice = 8;
+  else if (norm <= 9)   nice = 9;
+  else                  nice = 10;
+  return nice * mag;
 }
 
 // Catmull-Rom → Cubic Bézier (smooth lines)
