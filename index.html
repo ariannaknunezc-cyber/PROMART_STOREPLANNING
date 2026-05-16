@@ -426,17 +426,9 @@
       </div>
       <div class="control-row">
         <div class="control-group grow">
-          <span class="control-label">Áreas comerciales · 3 de 8</span>
-          <div class="chip-group">
-            <span class="multi-chip" onclick="toggleAll(this)">Todas</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Ferretería</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Construcción</span>
-            <span class="multi-chip selected" onclick="this.classList.toggle('selected')">Hogar</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Decoración</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Jardín</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Iluminación</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Pinturas</span>
-            <span class="multi-chip" onclick="this.classList.toggle('selected')">Baño y cocina</span>
+          <span class="control-label" id="areas-label">Áreas comerciales · Carga tu Excel para ver las áreas</span>
+          <div class="chip-group" id="area-chips">
+            <span class="multi-chip active" onclick="selectAllAreas(this)">Todas</span>
           </div>
         </div>
       </div>
