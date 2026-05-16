@@ -184,8 +184,8 @@ section.block:not(:last-of-type)::after{content:'';display:block;margin-top:96px
 .seg-btn{padding:7px 16px;font-size:13px;font-weight:600;border:none;background:transparent;cursor:pointer;border-radius:7px;color:var(--ink3);transition:all .15s;font-family:inherit;display:flex;align-items:center;gap:6px;}
 .seg-btn:hover{color:var(--ink);}
 .seg-btn.active{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(15,15,16,.08);}
-.country-select{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border:1px solid var(--ln);border-radius:10px;background:var(--card);font-size:13px;cursor:pointer;font-weight:500;}
-.country-select::after{content:'⌄';color:var(--ink3);margin-left:8px;}
+.country-select{display:inline-flex;align-items:center;gap:10px;padding:8px 36px 8px 16px;border:1px solid var(--ln);border-radius:10px;background:var(--card);font-size:13px;cursor:pointer;font-weight:500;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237A7A82' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;font-family:inherit;}
+.chip-dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex-shrink:0;}
 .chip-group{display:flex;flex-wrap:wrap;gap:6px;}
 .multi-chip{padding:6px 12px;border-radius:999px;font-size:12px;font-weight:500;border:1px solid var(--ln);background:var(--card);cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:6px;user-select:none;}
 .multi-chip:hover{border-color:var(--ink);}
@@ -319,6 +319,12 @@ footer p{font-size:13px;color:rgba(255,255,255,.55);max-width:280px;margin:16px 
 .sp-field-item svg{flex-shrink:0;color:var(--p);}
 .sp-form-btn{font-size:14px;padding:13px 22px;border-radius:12px;text-decoration:none;}
 .sp-form-sla{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink3);margin:0;}
+
+/* UPLOAD ESTADOS */
+.upload.drag-over{border-color:var(--p);background:var(--ps);transform:scale(1.01);}
+.upload.loaded{border-color:var(--ok);background:linear-gradient(180deg,var(--card),var(--oks));}
+.upload.loaded .upload-icon svg{stroke:var(--ok);}
+.upload.loaded h4{color:var(--ok);}
 
 /* SECTION-HEAD sin owner-card */
 .section-head:not(:has(> *:nth-child(2))){grid-template-columns:1fr;}
