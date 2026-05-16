@@ -185,6 +185,7 @@
           <div class="sc-title-row">
             <div>
               <div class="sc-title">Tienda Alta</div>
+              <div class="sc-sub">Edificación de mayor altura con menor huella</div>
             </div>
             <div class="status-badge" data-state="vigente" data-store="tienda-alta">
               <span class="status-dot"></span>
@@ -227,6 +228,7 @@
           <div class="sc-title-row">
             <div>
               <div class="sc-title">Tienda Baja</div>
+              <div class="sc-sub">Edificación de mayor huella con menor altura</div>
             </div>
             <div class="status-badge" data-state="vigente" data-store="tienda-baja">
               <span class="status-dot"></span>
@@ -381,10 +383,10 @@
         <div class="control-group">
           <span class="control-label">Tipo de gráfico</span>
           <div class="segmented">
-            <button class="seg-btn active" onclick="setChart('bar',this)">
+            <button class="seg-btn" onclick="setChart('bar',this)">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="12" width="4" height="8"/><rect x="10" y="7" width="4" height="13"/><rect x="17" y="3" width="4" height="17"/></svg>Barras
             </button>
-            <button class="seg-btn" onclick="setChart('line',this)">
+            <button class="seg-btn active" onclick="setChart('line',this)">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Líneas
             </button>
           </div>
@@ -435,13 +437,13 @@
     <div class="chart-wrap">
       <div class="chart-head">
         <div>
-          <h4>Comparativo por m² · Ferretería · Construcción · Hogar · Perú</h4>
+          <h4>Venta por m² · Ferretería · Construcción · Hogar · Perú</h4>
           <small>Datos de ejemplo · Sube tu Excel para ver datos reales · Pasa el mouse sobre cada elemento para ver detalle</small>
         </div>
         <button class="btn sm ghost"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Exportar PNG</button>
       </div>
 
-      <div class="chart" id="chart" data-type="bar">
+      <div class="chart" id="chart" data-type="line">
         <!-- BAR VIEW -->
         <div class="bar-view">
           <div class="bar" style="--bar-c:#3B82F6;height:45%"
